@@ -9,8 +9,9 @@ export const useAuth = () => {
 
     const login = useCallback(
         (jwtToken: string) => {
-                user.setIsAuth(true);
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(jwtToken));
+            user.setIsAuth(true);
+            user.setToken(jwtToken);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(jwtToken));
         },
         [user]
     );
@@ -18,7 +19,18 @@ export const useAuth = () => {
     const logout = useCallback(() => {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
         user.setIsAuth(false);
+        user.setToken('');
     }, [user]);
 
-    return { login, logout };
+    const checkIsLogin = useCallback(() => {
+        const tokenJson = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (tokenJson) {
+            user.setIsAuth(true);
+            user.setToken(JSON.parse(tokenJson));
+        } else {
+            user.setIsAuth(false);
+        }
+    }, []);
+
+    return { login, logout, checkIsLogin };
 };
