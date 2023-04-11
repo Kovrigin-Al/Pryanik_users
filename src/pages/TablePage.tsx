@@ -1,29 +1,18 @@
 import { observer } from "mobx-react-lite";
 import { FC, useContext, useEffect } from "react";
-import ToolBar from "../components/ToolBar";
+import ToolBar from "../components/table/ToolBar";
 import { useTableSetup } from "../hooks/useTableSetup";
 import { useRequest } from "../hooks/useRequest";
 import { ListContext, UserContext } from "../context";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { IRecord } from "../context/ListStore";
 
 type Props = {};
-
-export interface IData {
-    id: string;
-    documentStatus: string;
-    employeeNumber: string;
-    documentType: string;
-    documentName: string;
-    companySignatureName: string;
-    employeeSignatureName: string;
-    employeeSigDate: string;
-    companySigDate: string;
-}
 
 interface ITableResponse {
     error_code: number;
     error_message: string;
-    data: IData[];
+    data: IRecord[];
 }
 
 const TablePage: FC<Props> = observer(({}) => {
@@ -46,7 +35,6 @@ const TablePage: FC<Props> = observer(({}) => {
             await request("/ru/data/v3/testmethods/docs/userdocs/get", "GET", null, {
                 "x-auth": token,
             }).then((response: ITableResponse) => {
-                console.log(response.data);
                 setItems(response.data);
             });
         }
@@ -62,9 +50,9 @@ const TablePage: FC<Props> = observer(({}) => {
     return (
         <div className="w-full flex justify-center">
             <div className=" w-full container h-full flex flex-col justify-center pt-2">
-                <ToolBar selectedUsers={selectedFlatRows} />
+                <ToolBar selectedRecords={selectedFlatRows} />
                 {isLoading && <LoadingSpinner/>}
-                <div className="relative pt-5">
+                <div className="relative ">
                 {isSyncing && <div className="absolute top-0">Data is syncing..</div>}
                 {!isLoading && <table
                     {...getTableProps()}

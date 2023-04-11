@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-export interface IUser {
+export interface IRecord {
   id: string;
   documentStatus: string;
   employeeNumber: string;
@@ -13,17 +13,21 @@ export interface IUser {
 }
 
 export default class ListStore {
-  _items: IUser[];
+  _items: IRecord[];
   constructor() {
     this._items = [];
     makeAutoObservable(this);
   }
 
-  setItems = (items: IUser[]) => {
+  setItems = (items: IRecord[]) => {
     this._items = items;
   };
 
-  updateItems = (items: IUser[]) => {
+  addItem = (item: IRecord) => {
+    this._items= [...this._items, item]
+  }
+
+  updateItems = (items: IRecord[]) => {
     this._items = [...this._items.filter(i => items.findIndex(newItem => i.id === newItem.id)), ...items];
   };
 

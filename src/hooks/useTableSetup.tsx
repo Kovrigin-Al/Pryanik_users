@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useTable, useRowSelect, Row } from "react-table";
-import { IData } from "../pages/TablePage";
-import { IndeterminateCheckbox } from "../components/IndeterminateCheckbox";
-import { EditableCell } from "../components/EditableCell";
-import { IUser } from "../context/ListStore";
+import { IndeterminateCheckbox } from "../components/table/IndeterminateCheckbox";
+import { EditableCell } from "../components/table/EditableCell";
+import { IRecord } from "../context/ListStore";
 import { useColumnsCreate } from "./useColumnsCreate";
 import { useTableUpdate } from "./useTableUpdate";
 
 export const useTableSetup = (
-    users: IUser[],
+    records: IRecord[],
     sendChange: (
         url: string,
         method: "GET" | "POST" | "PUT" | "DELETE" | undefined,
@@ -16,10 +15,10 @@ export const useTableSetup = (
         headers?: {}
     ) => Promise<any>
 ) => {
-    const [data, setData] = useState(users);
+    const [data, setData] = useState(records);
     useEffect(() => {
-        setData(users);
-    }, [users]);
+        setData(records);
+    }, [records]);
 
     const { updateMyData, skipPageReset } = useTableUpdate(setData, sendChange);
 
@@ -49,7 +48,7 @@ export const useTableSetup = (
                         <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
                     ),
 
-                    Cell: ({ row }: { row: Row<IData> }) => (
+                    Cell: ({ row }: { row: Row<IRecord> }) => (
                         <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
                     ),
                 },

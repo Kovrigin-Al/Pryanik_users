@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { combineClasses } from "../utils/combineClasses";
+import { combineClasses } from "../../utils/combineClasses";
 import { IActions } from "./ToolBar";
 
 type Props = {

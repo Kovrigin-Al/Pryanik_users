@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import { CellProps } from "react-table";
-import { IData } from "../pages/TablePage";
 import { Calendar } from "./Calendar";
-import useDebounceCallback from "../hooks/useDebouncedCallback";
+import useDebounceCallback from "../../hooks/useDebouncedCallback";
+import { IRecord } from "../../context/ListStore";
 
-export const EditableCell: FC<CellProps<IData>> = ({
+export const EditableCell: FC<CellProps<IRecord>> = ({
     flatRows,
     value: initialValue,
     row: { index },

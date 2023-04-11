@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { Column } from "react-table";
-import { IData } from "../pages/TablePage";
+import { IRecord } from "../context/ListStore";
 
-export const useColumnsCreate = (): Column<IData>[] => {
+export const useColumnsCreate = (): Column<IRecord>[] => {
     return useMemo(
         () => [
             {
