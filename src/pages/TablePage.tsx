@@ -48,7 +48,7 @@ const TablePage: FC<Props> = observer(({}) => {
     }
 
     return (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center text-sm tracking-tight">
             <div className=" w-full container h-full flex flex-col justify-center pt-2">
                 <ToolBar selectedRecords={selectedFlatRows} />
                 {isLoading && <LoadingSpinner/>}
